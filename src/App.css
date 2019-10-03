@@ -1,0 +1,82 @@
+
+
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+:root {
+  --lightgrey: #ccc;
+  --darkgrey: #bbb;
+  --one: #1c84c6;
+  --two: #339900;
+  --three: #99cc33;
+  --four: #ffcc00;
+  --five: #ff9966;
+  --six: #cc3300;
+}
+
+.App {
+  text-align: center;
+  font-family: 'Nunito', 'Helvetica', 'Arial', sans-serif;
+}
+
+.board {
+  display: block;
+  height: 400px;
+  width: 400px;
+}
+
+.row {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10%;
+  line-height: 40px;
+}
+
+.square {
+  height: 100%;
+  width: 10%;
+  border: 1px solid #000;
+}
+
+.square span {
+  font-weight: bold;
+  font-size: 1.4rem;
+  height: 100%;
+  width: 100%;
+}
+
+
+.hidden {
+  width: 100%;
+  height: 100%;
+  background-color: var(--darkgrey);
+}
+.one {
+  background-color: var(--one);
+  color: #fff;
+}
+.two {
+  background-color: var(--two);
+  color: #fff;
+}
+.three {
+  background-color: var(--three);
+  color: #fff;
+}
+.four {
+  background-color: var(--four);
+  color: #fff;
+}
+.five {
+  background-color: var(--five);
+  color: #fff;
+}
+.six {
+  background-color: var(--six);
+  color: #fff;
+}
+.null {
+  background-color: #fff;
+}
