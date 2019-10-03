@@ -22,9 +22,9 @@ export default class Game extends Component {
       let row = [];
       for (let i =0; i < cols; i++) {
         if (mineCount < this.state.mines && Math.random() <= chance) {
-          row.push({row: game.length, col: i, val: 'x', hidden: false});
+          row.push({row: game.length, col: i, val: 'x', hidden: true});
           mineCount++;
-        } else row.push({row: game.length, col: i, val: null, hidden: false});
+        } else row.push({row: game.length, col: i, val: null, hidden: true});
       }
       game.push(row);
       row = [];
@@ -41,9 +41,30 @@ export default class Game extends Component {
     console.log('game over, loser');
   }
 
+  handleMove = (row, col) => {
+    let game = this.state.board;
+    let sq = game[row][col];
+
+    sq.hidden = false;
+
+    if (sq.val === 'x') {
+      this.handleGameOver();
+    } else if (sq.val === null) {
+      if (game[row-1][col].val === null && game[row-1][col].hidden === true) {
+        this.handleMove(row-1, col);
+      }
+    }
+
+    this.setState({
+      board: game
+    });
+  }
+
   handleClick = (e) => {
-    let i = parseInt(e.target.id);
-    this.handleMove(i);
+    let i = e.target.id.split(',');
+    let row = parseInt(i[0]);
+    let col = parseInt(i[1]);
+    this.handleMove(row , col);
 }
 
   makeBoard = (arr) => {
@@ -52,9 +73,9 @@ export default class Game extends Component {
       return <div className='row'> {arr.map(sq => {
         return <Square
           val={sq.val}
-          col={sq.col}
-          row={sq.row}
-          hidden={sq.hidden} />
+          id={sq.row.toString() + ',' + sq.col.toString()}
+          hidden={sq.hidden}
+          onClick={this.handleClick} />
       })} </div>
     });
 
