@@ -16,12 +16,12 @@
 .App {
   text-align: center;
   font-family: 'Nunito', 'Helvetica', 'Arial', sans-serif;
+  width: 400px;
 }
 
 .board {
   display: block;
   height: 400px;
-  width: 400px;
 }
 
 .row {
