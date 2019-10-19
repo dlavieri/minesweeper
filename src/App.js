@@ -1,10 +1,10 @@
 import React from 'react';
-import Game from './components/__comp.gameboard';
+import Game from './components/comp.gameboard';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Game />
     </div>
   );

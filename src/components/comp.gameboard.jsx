@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Square from './comp.square';
+import GameState from './comp.settings';
 
 export default class Game extends Component {
 
@@ -8,6 +9,65 @@ export default class Game extends Component {
     cols: 10,
     mines: 10,
     board: [],
+    timeStart: null,
+    time: 0,
+    gameOn: false,
+    newGame: false,
+  }
+
+// game state events
+  handleNewGame = () => {
+    this.setup();
+    this.startGame();
+  };
+
+  startGame = () => {
+    this.setState({
+      timeStart: new Date() - this.state.time,
+      time: 0,
+      gameOn: true
+    });
+
+    this.timer = setInterval(()=> this.setState({
+      time: this.state.time + 1
+    }), 1000);
+    document.getElementById('gameStartBtn').disabled = true;
+  }
+
+  handleGameWin = () => {
+    this.setState({
+      gameOn: false,
+      newGame: true,
+    });
+    alert('you win!');
+
+    clearInterval(this.timer);
+    document.getElementById('gameStartBtn').disabled = false;
+    document.getElementById('gameStartBtn').innerHTML = 'Play Again';
+  }
+
+  handleGameOver = () => {
+    this.setState({
+      gameOn: false,
+      newGame: true
+    });
+    this.revealMines();
+    alert('game over, loser');
+
+    clearInterval(this.timer);
+    document.getElementById('gameStartBtn').disabled = false;
+    document.getElementById('gameStartBtn').innerHTML = 'Try Again?';
+  }
+
+  revealMines = () => {
+    let game = this.state.board;
+    game.forEach(sq => {
+      if (sq.mine) sq.hidden = false;
+    });
+
+    this.setState({
+      board: game,
+    })
   }
 
 // set-up functions
@@ -96,9 +156,20 @@ export default class Game extends Component {
   }
 
 // handle moves
-  handleGameOver = () => {
-    console.log('game over, loser');
-    alert('game over, loser');
+
+  evaluateGame = () => {
+    let game = this.state.board;
+    let progress = 0;
+
+    game.forEach(sq => {
+      if (sq.mine === true || sq.hidden === false) {
+        progress++;
+      }
+    });
+
+    if (progress === game.length) {
+      this.handleGameWin();
+    }
   }
 
   handleMove = (sq) => {
@@ -125,12 +196,19 @@ export default class Game extends Component {
   this.setState({
     board: game
   });
+
+  this.evaluateGame();
 }
 
 // handle click events
 
 
   handleClick = (e) => {
+    if (!this.state.gameOn) {
+      this.startGame();
+    }
+    e.stopPropagation();
+
     let i = parseInt(e.target.id);
 
     setTimeout(() => {
@@ -165,7 +243,8 @@ export default class Game extends Component {
           flag={arr[i].flag}
           id={arr[i].id}
           onClick={this.handleClick}
-          onDoubleClick={this.handleDoubleClick}/>);
+          onDoubleClick={this.handleDoubleClick}
+          gameOn={this.state.gameOn}/>);
 
       if ((i+1)%10 === 0) {
         board.push(<div className='row'>{row}</div>);
@@ -180,8 +259,15 @@ export default class Game extends Component {
 
   render () {
     return (
-      <div className='board'>
-        {this.makeBoard(this.state.board)}
+      <div className='App'>
+        <GameState
+          time={this.state.time}
+          startGame={this.startGame}
+          newGame={this.state.newGame}
+          onNewGame={this.handleNewGame} />
+        <div className='board'>
+          {this.makeBoard(this.state.board)}
+        </div>
       </div>
     )
   }

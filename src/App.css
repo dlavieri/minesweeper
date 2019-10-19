@@ -70,13 +70,34 @@
   color: #fff;
 }
 .five {
-  background-color: var(--five);
+  background-color: var(--four);
   color: #fff;
 }
 .six {
+  background-color: var(--five);
+  color: #fff;
+}
+.seven {
+  background-color: var(--six);
+  color: #fff;
+}
+.eight {
   background-color: var(--six);
   color: #fff;
 }
 .null {
   background-color: #fff;
+}
+.mine {
+  background-color: #000;
+  color: var(--six);
+}
+.fa-flag {
+  color: white;
+}
+
+@media screen only and (max-width: 400px) {
+  .App {
+    width: 100%;
+  }
 }
