@@ -14,6 +14,7 @@ export default class Game extends Component {
     time: 0,
     gameOn: false,
     newGame: false,
+    gameResult: 'playing',
   }
 
 // game state events
@@ -26,7 +27,8 @@ export default class Game extends Component {
     this.setState({
       timeStart: new Date() - this.state.time,
       time: 0,
-      gameOn: true
+      gameOn: true,
+      gameResult: 'playing',
     });
 
     this.timer = setInterval(()=> this.setState({
@@ -39,8 +41,8 @@ export default class Game extends Component {
     this.setState({
       gameOn: false,
       newGame: true,
+      gameResult: "win"
     });
-    alert('you win!');
 
     clearInterval(this.timer);
     document.getElementById('gameStartBtn').disabled = false;
@@ -50,10 +52,10 @@ export default class Game extends Component {
   handleGameOver = () => {
     this.setState({
       gameOn: false,
-      newGame: true
+      newGame: true,
+      gameResult: "loss"
     });
     this.revealMines();
-    alert('game over, loser');
 
     clearInterval(this.timer);
     document.getElementById('gameStartBtn').disabled = false;
@@ -205,8 +207,10 @@ export default class Game extends Component {
 
 
   handleClick = (e) => {
-    if (!this.state.gameOn) {
+    if (!this.state.gameOn && this.state.time === 0) {
       this.startGame();
+    } else if (!this.state.gameOn && this.state.time != 0) {
+      return null;
     }
     e.stopPropagation();
 
@@ -221,7 +225,9 @@ export default class Game extends Component {
   }
 
   handleDoubleClick = (e) => {
-
+    if (!this.state.gameOn) {
+      return null;
+    }
     let i = parseInt(e.target.id);
     let game = this.state.board;
 
@@ -243,6 +249,7 @@ export default class Game extends Component {
           mine={arr[i].mine}
           flag={arr[i].flag}
           id={arr[i].id}
+          time={this.time}
           onClick={this.handleClick}
           onDoubleClick={this.handleDoubleClick}
           gameOn={this.state.gameOn}/>);
@@ -265,7 +272,8 @@ export default class Game extends Component {
           time={this.state.time}
           startGame={this.startGame}
           newGame={this.state.newGame}
-          onNewGame={this.handleNewGame} />
+          onNewGame={this.handleNewGame}
+          gameResult={this.state.gameResult} />
         <div className='board'>
           {this.makeBoard(this.state.board)}
         </div>

@@ -9,34 +9,34 @@ export default function Square (props) {
 
   switch (props.val) {
     case 1:
-      color = 'one';
+      color = 'one square';
       break;
     case 2:
-      color = 'two';
+      color = 'two square';
       break;
     case 3:
-      color = 'three';
+      color = 'three square';
       break;
     case 4:
-      color = 'four';
+      color = 'four square';
       break;
     case 5:
-      color = 'five';
+      color = 'five square';
       break;
     case 6:
-      color = 'six';
+      color = 'six square';
       break;
     case 7:
-      color = 'seven';
+      color = 'seven square';
       break;
     case 8:
-      color = 'eight';
+      color = 'eight square';
       break;
     default:
       color = '';
   }
 
-  if (props.mine) color = 'mine';
+  if (props.mine) color = 'mine square';
 
 
   return (

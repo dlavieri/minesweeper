@@ -4,7 +4,7 @@
 
 :root {
   --lightgrey: #ccc;
-  --darkgrey: #bbb;
+  --darkgrey: #2d2d2f;
   --one: #1c84c6;
   --two: #339900;
   --three: #99cc33;
@@ -12,20 +12,74 @@
   --five: #ff9966;
   --six: #cc3300;
 }
+html {
+  height: 100%;
+  width: 100%;
+  background-color: #c2c2c2;
+}
+
+.layout {
+  background-color: #c2c2c2;
+  padding: 10px;
+  width: 400px;
+  margin: 0 auto;
+  display: block;
+}
 
 .App {
   text-align: center;
   font-family: 'Nunito', 'Helvetica', 'Arial', sans-serif;
   width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
+/* SETTINGS */
+
+.gamestate {
+  height: 100px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 400ms ease-out;
+}
+
+.gamestate.playing {
+  background-color: blue;
+}
+.gamestate.win {
+  background-color: yellow;
+}
+.gamestate.loss {
+  background-color: red;
+}
+
+#gameStartBtn {
+  height: 40px;
+  width: 100px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.timer {
+  margin-top: 10px;
+  font-size: 1.4em;
+}
+
+/* GAMEBOARD */
 .board {
   display: block;
   height: 400px;
+  margin-bottom: 40px;
 }
 
 .row {
-  margin: 0;
+  margin: 3px 0;
   padding: 0;
   display: flex;
   flex-direction: row;
@@ -34,10 +88,14 @@
   line-height: 40px;
 }
 
+.col {
+  margin: 0 1.5px;
+}
+
 .square {
   height: 100%;
-  width: 10%;
-  border: 1px solid #000;
+  width: 100%;
+  border-radius: 5px;
 }
 
 .square span {
@@ -52,55 +110,53 @@
   width: 100%;
   height: 100%;
   background-color: var(--darkgrey);
+  border-radius: 5px;
 }
 .one {
-  background-color: var(--one);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--one);
 }
 .two {
-  background-color: var(--two);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--two);
 }
 .three {
-  background-color: var(--three);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--three);
 }
 .four {
-  background-color: var(--four);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--four);
 }
 .five {
-  background-color: var(--four);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--four);
 }
 .six {
-  background-color: var(--five);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--five);
 }
 .seven {
-  background-color: var(--six);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--six);
 }
 .eight {
-  background-color: var(--six);
-  color: #fff;
+  background-color: var(--darkgrey);
+  color: var(--six);
 }
 .null {
-  background-color: #fff;
+  background-color: #4d4d4f;
 }
 .mine {
   background-color: #000;
   color: var(--six);
+  border-radius: 5px;
 }
 .fa-flag {
   color: white;
 }
 
-@media screen only and (max-width: 400px) {
-  .App {
-    width: 100%;
-  }
-}
+
 
 ul {
   list-style-type: none;
@@ -115,8 +171,28 @@ ul {
   font-size: 1rem;
 }
 .instruct {
-  border: solid black 1px;
+  border-radius: 10px;
+  background-color: #fff;
 }
 .instruct h5 {
   margin: 5px 0 3px 0;
+}
+
+@media only screen and (max-width: 420px) {
+  .layout {
+    width: 100%;
+  }
+
+  .App {
+    width: 100%;
+  }
+
+  .board {
+    height: 100vw;
+    font-size: 0.6em;
+  }
+
+  .square span{
+    line-height:0.6em;
+  }
 }
