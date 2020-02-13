@@ -101,3 +101,22 @@
     width: 100%;
   }
 }
+
+ul {
+  list-style-type: none;
+}
+.instruct-item {
+  margin: 0;
+  /* text-align: left; */
+  font-size: 0.8rem;
+}
+.instruct-item span {
+  font-family: monospace;
+  font-size: 1rem;
+}
+.instruct {
+  border: solid black 1px;
+}
+.instruct h5 {
+  margin: 5px 0 3px 0;
+}

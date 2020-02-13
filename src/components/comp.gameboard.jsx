@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Square from './comp.square';
 import GameState from './comp.settings';
+import Instructions from './comp.instructions';
 
 export default class Game extends Component {
 
@@ -268,6 +269,7 @@ export default class Game extends Component {
         <div className='board'>
           {this.makeBoard(this.state.board)}
         </div>
+        <Instructions />
       </div>
     )
   }
